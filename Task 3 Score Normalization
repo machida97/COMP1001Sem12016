@@ -1,0 +1,80 @@
+Having finished reading in all the training data and storing all the frequencies in the two default dictionaries, we step convert all the frequencies into probabilities ... which is not as scary as it sounds (in fact, of you are allergic to probabilities from high school Maths, forget we mentioned the word; all you need to know is that we scale each frequency to sum to one for a given context!) — all we need to do is count up the total frequency for a given phoneme context (in the case of bigrams) or combined phoneme/bigram context (in the case of trigrams), and divide each of the frequencies for that context by this number.
+
+For example, given the following alignment:
+
+phoneme:	D	UW	D
+grapheme:	d	u	de
+We would learn the following bigram frequencies: freq(d|D)=1, freq(u|UW)=1 and freq(de|D)=1. That is, there are two different phoneme contexts, with the following frequencies freq(∗|D)=2 and freq(∗|UW)=1, where ∗
+ indicates any possible grapheme. Given this, we can calculate the bigram probability: Pr(d|D)=freq(d|D)freq(∗|D)=12=0.5. Similarly, Pr(u|UW)=11=1.0 and Pr(de|D)=12=0.5.
+In the case of the trigams, the three (phoneme, grapheme) contexts are all unique, such that, for example, 
+P
+r
+(
+d
+|
+D
+,
+^
+)
+=
+f
+r
+e
+q
+(
+d
+|
+D
+,
+^
+)
+f
+r
+e
+q
+(
+∗
+|
+D
+,
+^
+)
+1
+1
+=
+1.0
+; similarly, 
+P
+r
+(
+u
+|
+U
+W
+,
+d
+)
+=
+1
+1
+=
+1.0
+ and 
+P
+r
+(
+d
+e
+|
+D
+,
+u
+)
+=
+1
+1
+=
+1.0
+.
+
+Write a function normalise that takes the single argument ngrams (a default dictionary of the form returned by train_ngrams for each of bigrams and trigrams in the return tuple), and converts each of the frequencies to probabilities in place (and returns None).
