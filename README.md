@@ -1,5 +1,5 @@
-# COMP1001Sem12016
-Contains some small assignments from an introductory Python course COMP1001 at the University of Melbourne
+# COMP1001Sem12016Assignment2SpeechRecognition
+Details of an assignment from an introductory Python course COMP1001 at the University of Melbourne. 
 
 Below is a glossary of common terms which are used in the project description:
 
