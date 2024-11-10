@@ -1,0 +1,14 @@
+OK, having validated the alignment file (and from here on, we can now assume that the input alignment file has been pre-validated and all rows are valid), next let's read in the alignment frequencies from a CSV file (assuming the same format as for the previous question). We will focus on two types of frequencies:
+
+the frequency of a given grapheme sequence being associated with a given phoneme, which we will call a bigram frequency as it is made up of two parts
+the frequency of a given grapheme sequence being associated with a given phoneme and following a particular grapheme sequence, which we will call a trigram frequency as it is made up of three parts
+For example, given the following aligned phoneme—grapheme pair:
+phoneme:	T	UH	T
+grapheme(s):	t	oo	t
+We would want to learn the following bigram frequencies: 
+freq(t|T)=2 and freq(oo|UH)=1, using the | notation to indicate that it is the count of a given grapheme sequence given a particular phoneme sequence. Similarly, the trigram frequencies would be: freq(t|T,^)=1, freq(oo|UH,t)=1 and freq(t|T,oo)=1
+, noting that for the first grapheme we introduce a special symbol for the grapheme context (^) to indicate that it starts the word.
+Write a function train_ngrams that takes the single argument train_file (a string, identifying the name of the alignment file to read the alignment data in from), and returns the 2-tuple (bigrams, trigrams) as follows:
+
+bigrams is a default dictionary of dictionaries such for a given phoneme (as the key of the default dictionary) and a given grapheme sequence (as the key of the dictionary), the frequency is stored as an int
+trigrams is a default dictionary of dictionaries such for a given (phoneme, grapheme) context (as the 2-tuple key of the default dictionary) and a given grapheme sequence (as the key of the dictionary), the frequency is stored as an int
