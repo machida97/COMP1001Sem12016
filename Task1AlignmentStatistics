@@ -1,0 +1,17 @@
+First, let's do some preliminary analysis of a CSV file containing aligned phoneme—grapheme sequences for training, with the following format:
+
+phonemes,graphemes
+W IY K D EY,w ee k d ay
+T EH K S T,t e x _ t
+The first row contains column headers, and each subsequent row contains a phoneme string (made up of the 39 CMU phonemes, separated by spaces) and a grapheme string (made up of lower-case ASCII characters and underscores representing the fact that the preceding grapheme aligns with multiple contiguous phonemes; for example, in the third row in our example, the underscore indicates that the grapheme x aligns with the phoneme sequence K S).
+Write a function get_stats that takes the following arguments:
+
+train_file: a string, with the name of the CSV file to read in the alignment data from (guaranteed to be in the format described above)
+the optional argument valid_pfile: a string, with the name of the CSV file to read in the valid phoneme data from (with a single phoneme per line, and no header); set to "cmu-phonemes.txt" by default
+the optional argument valid_graphemes: a set of strings, containing the full inventory of valid graphemes (set to the 26 lower-case ASCII characters plus underscore _ by default)
+and returns a tuple of numbers based on the composition of grapheme—phoneme sequences in the file train_file, as follows (in sequence):
+the number of invalid rows in train_file (where the number of elements does not match between the two sequences, or there are one or more graphemes/phonemes not contained in the respective dictionaries; an int)
+the average number of phonemes per word (a float)
+the average number of graphemes per word (not including NULL graphemes; a float)
+the proportion of grapheme sequences containing one or more underscores (i.e. containing one or more many-to-one phoneme—grapheme alignments; a float)
+The last three values should be based only on valid rows. That is, if a row is invalid, the number of graphemes/phonemes should be not counted towards the calculations of the averages or the proportion. For each of the last three values, if the denominator is zero, the returned value should be None.
